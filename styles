@@ -1,0 +1,76 @@
+body {
+    background: radial-gradient(circle farthest-corner at 10% 20%, rgb(93, 5, 76) 0%, rgba(32,45,58,1) 81.3%);
+    height: 100vh;
+}
+
+#todo-app {
+    width: calc(100% - 340px); /* Gesamtbreite der Seite abzüglich 300px für den Chatbot und 40px für den Abstand */
+    margin: auto;
+    padding: 25px;
+    border-style: solid;
+    border-width: 5px;
+    border-color: blueviolet;
+    border-radius: 20px;
+    background-color: cornflowerblue;
+    overflow: hidden; /* Overflow hinzugefügt, um sicherzustellen, dass der Rand korrekt dargestellt wird */
+    height: calc(100vh - 40px); /* Hier wird die Höhe an die verfügbare Höhe abzüglich des Abstands zum Footer angepasst */
+    display: flex;
+    flex-direction: column;
+}
+
+#task-list {
+    list-style-type: none;
+    padding: 0; /* Padding für die Liste entfernen, um einen besseren Rand zu erhalten */
+    flex: 1; /* Damit die Todo-Items die verfügbare Höhe nutzen */
+}
+
+.task-item {
+    background-color: #fff; /* Hintergrundfarbe für Todo-Items ändern */
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px; /* Rand für jedes Todo-Item hinzufügen */
+}
+
+#chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+#chatbox {
+    padding: 20px;
+    height: calc(100% - 40px); /* Verwende die volle Höhe des Chatbot-Containers abzüglich des Platzes für die Frage- und Antwortleiste */
+    background-color: #fff;
+    overflow-y: auto;
+}
+
+#questionBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #ddd; /* Hintergrundfarbe für die Frageleiste ändern */
+}
+
+#userInput {
+    width: 60%;
+    padding: 5px;
+    margin-top: 10px;
+}
+
+#questionSelect {
+    width: 35%;
+    padding: 5px;
+    margin-top: 10px;
+}
+
+#sendMessage {
+    width: 18%;
+    padding: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+}
