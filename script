@@ -1,0 +1,94 @@
+document.addEventListener('DOMContentLoaded', function () {
+    const chatbox = document.getElementById('chatbox');
+    const chatMessages = document.getElementById('chat-messages');
+    const userInput = document.getElementById('userInput');
+    const sendMessageBtn = document.getElementById('sendMessage');
+    const questionSelect = document.getElementById('questionSelect');
+
+    const customQuestions = {
+        'wie geht es dir?': 'Mir geht es gut, danke!',
+        'wie ist das wetter heute?': 'Ich bin nur ein Chatbot und habe keinen Zugriff auf Echtzeitinformationen.',
+        'wer bist du?': 'Ich bin ein einfacher Chatbot, erstellt, um Ihre Fragen zu beantworten.',
+        // Füge weitere Fragen und Antworten nach Bedarf hinzu
+    };
+
+    // Fülle die Dropdown-Liste mit den klickbaren Fragen
+    Object.keys(customQuestions).forEach(question => {
+        const questionOption = document.createElement('option');
+        questionOption.value = question;
+        questionOption.textContent = question;
+        questionSelect.appendChild(questionOption);
+    });
+
+    sendMessageBtn.addEventListener('click', function () {
+        const userMessage = userInput.value.trim();
+        if (userMessage !== '') {
+            appendMessage('user', userMessage);
+            handleCustomMessages(userMessage);
+            userInput.value = '';
+        }
+    });
+
+    questionSelect.addEventListener('change', function () {
+        const selectedQuestion = questionSelect.value;
+        appendMessage('user', selectedQuestion);
+        handleCustomMessages(selectedQuestion);
+        questionSelect.value = '';
+    });
+
+    function appendMessage(sender, message) {
+        const messageElement = document.createElement('div');
+        messageElement.className = 'message';
+        messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
+        chatMessages.appendChild(messageElement);
+        chatbox.scrollTop = chatbox.scrollHeight;
+    }
+
+    function handleCustomMessages(userMessage) {
+        const lowerCaseMessage = userMessage.toLowerCase();
+
+        if (lowerCaseMessage in customQuestions) {
+            const botResponse = customQuestions[lowerCaseMessage];
+            appendMessage('bot', botResponse);
+        } else {
+            const defaultResponse = 'Entschuldigung, ich habe das nicht verstanden.';
+            appendMessage('bot', defaultResponse);
+        }
+    }
+});
+
+function createTodoElement(todoContent) {
+    const listItem = document.createElement('li');
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    const taskText = document.createElement('span');
+    taskText.textContent = todoContent + '   ';
+    const delButton = document.createElement('button');
+    delButton.textContent = 'Delete Task';
+    delButton.onclick = function () {
+        deleteTodo(listItem);
+    };
+
+    listItem.appendChild(checkbox);
+    listItem.appendChild(taskText);
+    listItem.appendChild(delButton);
+
+    return listItem;
+}
+
+function addTask() {
+    const taskContent = document.getElementById('todoInput').value;
+    const listItem = createTodoElement(taskContent);
+
+    document.getElementById('task-list').appendChild(listItem);
+    document.getElementById('todoInput').value = '';
+}
+
+document.getElementById('add-task').addEventListener('click', addTask);
+
+function deleteTodo(todoItem) {
+    const confirmDelete = confirm('Möchtest du dieses Todo wirklich löschen?');
+    if (confirmDelete) {
+        todoItem.parentNode.removeChild(todoItem);
+    }
+}
