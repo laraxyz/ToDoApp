@@ -3,169 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo List</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            color: #333;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            overflow: hidden;
-            position: relative;
-        }
-
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: repeating-linear-gradient(
-                to bottom,
-                transparent 0,
-                transparent 8px,
-                #f0f0f0 8px,
-                #f0f0f0 16px
-            );
-            z-index: -1;
-        }
-
-        .content {
-            z-index: 1;
-            text-align: center;
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        li {
-            margin-bottom: 10px;
-            cursor: pointer; /* Füge einen Cursor hinzu, um anzuzeigen, dass es klickbar ist */
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .options {
-            display: flex;
-            gap: 10px;
-        }
-
-        .delete-btn, .complete-btn {
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-
-        .completed {
-            text-decoration: line-through;
-            color: #888;
-        }
-
-        #welcome-section {
-            margin-bottom: 20px;
-        }
-    </style>
-    <link rel="stylesheet" href="styles.css">
-    <title>My ToDo App</title>
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
 </head>
 <body>
 
-    <div class="content">
-        <div id="welcome-section">
-            <h2>Herzlich Willkommen, wie ist dein Name?</h2>
-            <input type="text" id="nameInput" placeholder="Dein Name">
-            <button onclick="updateWelcomeMessage()">Submit</button>
-        </div>
+    <header></header>
 
-        <h1 id="todoTitle">Todo List</h1>
+    <h1>Project Todo List</h1>
 
-        <ul id="todoList" onclick="handleTodoOptions(event)">
-            <!-- Hier werden die Todo-Elemente hinzugefügt -->
-        </ul>
-
-        <button onclick="addTodo()">Neues Todo hinzufügen</button>
+    <div id="todo-app">
+        <input type="text" id="todoInput" placeholder="e.g. buy Milk">
+        <button id="add-task">Todo Hinzufügen</button>
+        <ul id="task-list"></ul>
     </div>
 
-    <script>
-        // Funktion zum Hinzufügen von Todo-Elementen
-        function addTodo() {
-            var todoText = prompt("Neues Todo hinzufügen:");
-            if (todoText) {
-                var todoList = document.getElementById("todoList");
-                var newTodo = document.createElement("li");
-                newTodo.textContent = todoText;
-                newTodo.classList.add('todo-item'); // Füge eine Klasse hinzu, um das Styling zu steuern
-                todoList.appendChild(newTodo);
-            }
-        }
+    <div id="chatbot-container">
+        <div id="chatbox">
+            <div id="chat-messages"></div>
+            <input type="text" id="chatInput" placeholder="Type your message...">
+            <button id="sendMessage">Send</button>
+        </div>
+    </div>
 
-        // Funktion zum Bearbeiten der Todo-Elemente (Löschen oder Erledigt markieren)
-        function handleTodoOptions(event) {
-            var target = event.target;
-            if (target.tagName === 'LI' && target.classList.contains('todo-item')) {
-                var options = document.createElement('div');
-                options.classList.add('options');
-
-                var deleteBtn = document.createElement('button');
-                deleteBtn.textContent = 'Löschen';
-                deleteBtn.classList.add('delete-btn');
-                deleteBtn.onclick = function() {
-                    deleteTodoItem(event.target);
-                };
-
-                var completeBtn = document.createElement('button');
-                completeBtn.textContent = 'Erledigt';
-                completeBtn.classList.add('complete-btn');
-                completeBtn.onclick = function() {
-                    markAsCompleted(event.target);
-                };
-
-                options.appendChild(deleteBtn);
-                options.appendChild(completeBtn);
-
-                // Entferne vorherige Options, um nur eine gleichzeitig anzuzeigen
-                var previousOptions = document.querySelectorAll('.options');
-                previousOptions.forEach(function(opt) {
-                    opt.remove();
-                });
-
-                target.appendChild(options);
-            }
-        }
-
-        // Funktion zum Löschen von Todo-Elementen
-        function deleteTodoItem(todoItem) {
-            todoItem.remove();
-        }
-
-        // Funktion zum Markieren als "Erledigt"
-        function markAsCompleted(todoItem) {
-            todoItem.classList.add('completed');
-            var options = todoItem.querySelector('.options');
-            if (options) {
-                options.remove();
-            }
-        }
-
-        // Funktion zum Aktualisieren der Begrüßung und Überschrift mit dem eingegebenen Namen
-        function updateWelcomeMessage() {
-            var nameInput = document.getElementById('nameInput');
-            var todoTitle = document.getElementById('todoTitle');
-            var welcomeSection = document.getElementById('welcome-section');
-
-            if (nameInput.value) {
-                welcomeSection.innerHTML = '<h2>Hallo ' + nameInput.value + '</h2>';
-                todoTitle.textContent = nameInput.value + "'s Todo List";
-            }
-        }
-    </script>
+    <footer></footer>
+    <script src="script.js"></script>
 
 </body>
 </html>
+
